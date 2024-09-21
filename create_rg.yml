@@ -1,12 +1,5 @@
-- hosts: localhost
-  connection: local
-  become: true
-  become_method: su
-  become_user: root
-  vars:
-    ansible_python_interpreter: /bin/python3.12
-  collections:
-    - azure.azcollection
+- name: Creating resource group
+  host: all
   tasks:
     - name: Creating resource group
       azure_rm_resourcegroup:
