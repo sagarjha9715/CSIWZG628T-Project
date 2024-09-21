@@ -1,5 +1,5 @@
 - name: Creating resource group
-  host: all
+  hosts: all
   tasks:
     - name: Creating resource group
       azure_rm_resourcegroup:
