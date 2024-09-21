@@ -1,0 +1,12 @@
+- hosts: localhost
+  connection: local
+  become: true
+  vars:
+    ansible_python_interpreter: /bin/python3.12
+  collections:
+    - azure.azcollection
+  tasks:
+    - name: Creating resource group
+      azure_rm_resourcegroup:
+        name: "appvm"
+        location: "EAST US"
