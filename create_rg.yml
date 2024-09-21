@@ -1,5 +1,7 @@
 - name: Create Resource Group
   hosts: all
+  vars:
+    ansible_python_interpreter: /bin/python3.12
   collections:
     - azure.azcollection
   tasks:
