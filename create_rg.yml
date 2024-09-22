@@ -2,7 +2,7 @@
   hosts: all
   vars:
     ansible_python_interpreter: /bin/python3.12
-    ANSIBLE_AZURE_AUTH_SOURCE: env
+#    ANSIBLE_AZURE_AUTH_SOURCE: env
   collections:
     - azure.azcollection
   tasks:
