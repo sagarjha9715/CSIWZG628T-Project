@@ -1,13 +1,12 @@
-- name: Create Resource Group
-  hosts: all
+- hosts: all
+  gather_facts: yes
   vars:
     ansible_python_interpreter: /bin/python3.12
   collections:
     - azure.azcollection
-  tasks:
-    - name: Creating resource group
-      azure_rm_resourcegroup:
-        name: "appvm"
-        location: "EAST US"
-        state: present
+  roles:
+    - resource_group
+    - network_interface
+    - create_vm
+    
        

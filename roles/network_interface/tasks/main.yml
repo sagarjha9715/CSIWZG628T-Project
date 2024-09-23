@@ -1,0 +1,34 @@
+---
+- set_fact:
+    vnet == "Vnet-PROD"
+    security_grp == "Baseline-CI"
+  when: env == "PROD"
+
+- set_fact:
+    vnet == "Vnet-DEV"
+    security_grp == "Baseline"
+  when: env == "DEV"
+
+- set_fact:
+    vnet == "Vnet-TST"
+    security_grp == "Baseline-NE"
+  when: env == "TST"  
+
+- name: Create Vnet interface card for virtual machine
+  azure_rm_networkinterface:
+    name: "{{hostname}}_nic"
+    virtual_network:
+      name: "{{vnet}}"
+    location: "{{region}}"
+    subnet_name: "{{layer}}"
+    create_with_security_group: false
+    security_group:
+      name: "{{security_grp}}"
+    ip_configurations:
+      - name: ipconfig1
+        primary: True
+        private_ip_allocation_method: Dynamic
+    tags:
+      Owner: "{{owner_email}}"
+  
+  register: interface
