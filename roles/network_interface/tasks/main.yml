@@ -1,17 +1,17 @@
 ---
 - set_fact:
-    vnet == "Vnet-PROD"
-    security_grp == "Baseline-CI"
+    vnet: "Vnet-PROD"
+    security_grp: "Baseline-CI"
   when: env == "PROD"
 
 - set_fact:
-    vnet == "Vnet-DEV"
-    security_grp == "Baseline"
+    vnet: "Vnet-DEV"
+    security_grp: "Baseline"
   when: env == "DEV"
 
 - set_fact:
-    vnet == "Vnet-TST"
-    security_grp == "Baseline-NE"
+    vnet: "Vnet-TST"
+    security_grp: "Baseline-NE"
   when: env == "TST"  
 
 - name: Create Vnet interface card for virtual machine
