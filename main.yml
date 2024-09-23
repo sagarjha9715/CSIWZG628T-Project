@@ -2,11 +2,6 @@
   hosts: all
   vars:
     ansible_python_interpreter: /bin/python3.12
-  #  azure_subscription_id: "c149bd6c-537a-4c43-958f-aee9420e303f"
-   # azure_client_id: "7484bb5e-9d52-4b6e-beee-84bc76914c5b"
-    #azure_secret: "QB88Q~_u24wMUgJpUHdriUvg.t_ECBtnlAxRrbza"
-    #azure_tenant: "ab16026a-e464-4f9a-9b8d-886a91bf031c"
-#    ANSIBLE_AZURE_AUTH_SOURCE: env
   collections:
     - azure.azcollection
   tasks:
@@ -15,8 +10,4 @@
         name: "appvm"
         location: "EAST US"
         state: present
-       # auth_source: cli
-     #   subscription_id: "{{ azure_subscription_id }}"
-      #  client_id: "{{ azure_client_id }}"
-       # secret: "{{ azure_secret }}"
-        #tenant: "{{ azure_tenant }}"
+       
