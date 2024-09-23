@@ -17,9 +17,10 @@
 - name: Create Vnet interface card for virtual machine
   azure_rm_networkinterface:
     name: "{{hostname}}_nic"
+    resource_group: "{{rg_name}}"
     virtual_network:
       name: "{{vnet}}"
-    location: "{{region}}"
+#    location: "{{region}}"
     subnet_name: "{{layer}}"
     create_with_security_group: false
     security_group:
