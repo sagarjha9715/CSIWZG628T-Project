@@ -31,5 +31,6 @@
         private_ip_allocation_method: Dynamic
     tags:
       Owner: "{{owner_email}}"
+    api_version: "2023-02-01"
   
   register: interface
