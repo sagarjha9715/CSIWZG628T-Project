@@ -22,14 +22,14 @@
       name: "{{vnet}}"
       resource_group: "CSIWZG628T-Dissertation"
 #    location: "{{region}}"
-      subnet_name: "{{layer}}"
-      create_with_security_group: false
-      security_group:
-        name: "{{security_grp}}"
-      ip_configurations:
-        - name: ipconfig1
-          primary: True
-          private_ip_allocation_method: Dynamic
+    subnet_name: "{{layer}}"
+    create_with_security_group: false
+    security_group:
+      name: "{{security_grp}}"
+    ip_configurations:
+      - name: ipconfig1
+        primary: True
+        private_ip_allocation_method: Dynamic
     tags:
       Owner: "{{owner_email}}"
     api_profile: "latest"
