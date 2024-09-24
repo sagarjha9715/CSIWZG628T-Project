@@ -2,7 +2,8 @@
   azure_rm_virtualmachine:
     name: "{{hostname}}"
     resource_group: "{{rg_name}}"
-    network_interface: "{{hostname}}_nic"
+    network_interface_names: 
+      - "{{hostname}}_nic"
     vm_size: "{{vm_size}}"
     admin_username: "{{admin_user}}"
     admin_password: "{{admin_password}}"
@@ -13,7 +14,7 @@
       version: latest
     os_disk_caching: "ReadWrite"
     os_disk_size_gb: 30
-    os_disk_type: "Standard_LRS"
+    managed_disk_type: "Standard_LRS"
 
 - name: Ensure VM is running
   azure_rm_virtualmachine:
