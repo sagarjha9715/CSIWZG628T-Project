@@ -20,6 +20,7 @@
     resource_group: "{{rg_name}}"
     virtual_network:
       name: "{{vnet}}"
+      resource_group: "CSIWZG628T-Dissertation"
 #    location: "{{region}}"
     subnet_name: "{{layer}}"
     create_with_security_group: false
