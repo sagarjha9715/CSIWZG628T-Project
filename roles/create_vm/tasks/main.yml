@@ -11,7 +11,7 @@
       id: "/subscriptions/c149bd6c-537a-4c43-958f-aee9420e303f/resourceGroups/CSIWZG628T-Dissertation/providers/Microsoft.Compute/images/USWAPP27518-image-20240908125029"
     os_disk_caching: "ReadWrite"
     os_disk_size_gb: 30
-    managed_disk_type: "Standard HDD LRS"
+    managed_disk_type: "Standard_LRS"
 
 - name: Ensure VM is running
   azure_rm_virtualmachine:
