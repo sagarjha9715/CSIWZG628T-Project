@@ -1,5 +1,6 @@
 - name: Create Azure VM
   azure_rm_virtualmachine:
+    name: "{{hostname}}"
     resource_group: "{{rg_name}}"
     network_interface: "{{hostname}}_nic"
     vm_size: "{{vm_size}}"
