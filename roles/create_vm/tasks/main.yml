@@ -12,6 +12,7 @@
       publisher: canonical
       sku: 22_04-lts
       version: latest
+    location: "{{region}}"
     os_disk_caching: "ReadWrite"
     os_disk_size_gb: 30
     managed_disk_type: "Standard_LRS"
