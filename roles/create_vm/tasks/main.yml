@@ -16,7 +16,7 @@
     os_disk_caching: "ReadWrite"
     os_disk_size_gb: 100
     managed_disk_type: "Standard_LRS"
-    os_type: Window
+    os_type: Windows
     plan:
       name: 2022-datacenter-azure-edition-hotpatch        # This should match the offer or product name
       product: windowsserver
