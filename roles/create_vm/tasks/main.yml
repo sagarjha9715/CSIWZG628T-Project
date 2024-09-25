@@ -15,6 +15,11 @@
     os_disk_caching: "ReadWrite"
     os_disk_size_gb: 30
     managed_disk_type: "Standard_LRS"
+    os_type: Linux
+    plan:
+      name: 8_5-gen2        # This should match the offer or product name
+      product: CentOS
+      publisher: OpenLogic
 
 - name: Ensure VM is running
   azure_rm_virtualmachine:
