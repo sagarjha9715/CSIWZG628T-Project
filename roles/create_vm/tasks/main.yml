@@ -8,7 +8,10 @@
     admin_username: "{{admin_user}}"
     admin_password: "{{admin_password}}"
     image:
-      id: "/subscriptions/c149bd6c-537a-4c43-958f-aee9420e303f/resourceGroups/CSIWZG628T-Dissertation/providers/Microsoft.Compute/images/USWAPP27518-image-20240908125029"
+      offer: CentOS
+      publisher: OpenLogic
+      sku: 8_5-gen2
+      version: latest
     os_disk_caching: "ReadWrite"
     os_disk_size_gb: 30
     managed_disk_type: "Standard_LRS"
