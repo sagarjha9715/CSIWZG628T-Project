@@ -22,7 +22,10 @@
     allocation_method: "Static"  
     location: "{{ region }}"  
     state: present
-  register: public_ip 
+  register: public_ip
+
+- debug:
+    var: public_ip
 
 - name: Create Vnet interface card for virtual machine
   azure_rm_networkinterface:
@@ -40,7 +43,7 @@
       - name: ipconfig1
         primary: True
         private_ip_allocation_method: Dynamic
-        public_ip_address: "{{ public_ip.name }}"
+        public_ip_address: "{{ public_ip.ip_address }}"
     tags:
       Owner: "{{owner_email}}"
     api_profile: "latest"
