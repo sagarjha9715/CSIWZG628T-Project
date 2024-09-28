@@ -7,6 +7,7 @@
   roles:
     - resource_group
     - network_interface
+    - create_disk
     - create_vm
     
        
