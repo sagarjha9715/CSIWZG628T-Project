@@ -7,21 +7,21 @@
     vm_size: "{{vm_size}}"
     admin_username: "{{admin_user}}"
     admin_password: "{{admin_password}}"
-    subscription_id: 'c149bd6c-537a-4c43-958f-aee9420e303f'
+    subscription_id: "c149bd6c-537a-4c43-958f-aee9420e303f"
     image:
-      offer: windowsserver
-      publisher: microsoftwindowsserver
-      sku: 2022-datacenter-azure-edition-hotpatch
-      version: latest
+      offer: "WindowsServer"
+      publisher: "MicrosoftWindowsServer"
+      sku: "2022-datacenter-g2"
+      version: "latest"
     location: "{{region}}"
     os_disk_caching: "ReadWrite"
     os_disk_size_gb: 100
     managed_disk_type: "Standard_LRS"
-    os_type: Windows
-    plan:
-      name: 2022-datacenter-azure-edition-hotpatch        # This should match the offer or product name
-      product: windowsserver
-      publisher: microsoftwindowsserver
+    os_type: "Windows"
+  #  plan:
+  #    name: 2022-datacenter-azure-edition-hotpatch        # This should match the offer or product name
+ #     product: windowsserver
+   #   publisher: microsoftwindowsserver
     accept_terms: true
 
 - name: Ensure VM is running
