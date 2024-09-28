@@ -11,7 +11,7 @@
     image:
       offer: "WindowsServer"
       publisher: "MicrosoftWindowsServer"
-      sku: "2022-datacenter-g2"
+      sku: "2022-datacenter"
       version: "latest"
     location: "{{region}}"
     os_disk_caching: "ReadWrite"
