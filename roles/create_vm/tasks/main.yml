@@ -10,7 +10,7 @@
     subscription_id: "c149bd6c-537a-4c43-958f-aee9420e303f"
     location: "{{region}}"
     image:
-      offer: "001-com-ubuntu-server-jammy"
+      offer: "0001-com-ubuntu-server-jammy"
       publisher: "Canonical"
       sku: "22_04-lts"
       version: "latest"
