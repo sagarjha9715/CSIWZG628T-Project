@@ -1,4 +1,5 @@
 ---
+- include_vars: vars/main.yml
 - set_fact:
     vnet: "Vnet-PROD"
     security_grp: "Baseline-CI"
@@ -12,7 +13,16 @@
 - set_fact:
     vnet: "Vnet-TST"
     security_grp: "Baseline-NE"
-  when: env == "TST"  
+  when: env == "TST" 
+
+- name: Create Public IP for the network interface
+  azure_rm_publicipaddress:
+    name: "{{ hostname }}_public_ip"
+    resource_group: "{{ rg_name }}"
+    allocation_method: "Static"  
+    location: "{{ region }}"  
+    state: present
+  register: public_ip 
 
 - name: Create Vnet interface card for virtual machine
   azure_rm_networkinterface:
@@ -20,7 +30,7 @@
     resource_group: "{{rg_name}}"
     virtual_network:
       name: "{{vnet}}"
-      resource_group: "CSIWZG628T-Dissertation"
+      resource_group: "{{vnet_rg}}"
 #    location: "{{region}}"
     subnet_name: "{{layer}}"
     create_with_security_group: false
@@ -30,6 +40,7 @@
       - name: ipconfig1
         primary: True
         private_ip_allocation_method: Dynamic
+        public_ip_address: "{{ public_ip.name }}"
     tags:
       Owner: "{{owner_email}}"
     api_profile: "latest"

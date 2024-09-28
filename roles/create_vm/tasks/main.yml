@@ -11,6 +11,7 @@
           sku: "{{ images[Os_Type].sku }}"
           version: "{{ images[Os_Type].version }}"
       when: Os_Type in images
+      
 
     - name: Create Azure VM
       azure_rm_virtualmachine:
