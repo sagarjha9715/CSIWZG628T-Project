@@ -1,6 +1,5 @@
-- name: Server Creation on process
-  tasks:
-
+- name: Server Creation on process.
+  block:
     - name: Include variables from vars/main.yml
       include_vars: "vars/main.yml"
 
