@@ -49,3 +49,7 @@
     api_profile: "latest"
   
   register: interface
+
+- debug:
+    var: interface
+

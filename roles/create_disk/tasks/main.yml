@@ -1,1 +1,34 @@
---- 
+---
+- name: Create OS managed disk
+  azure_rm_manageddisk:
+    resource_group: "{{ rg_name }}"
+    name: "{{hostname}}_OSdisk"
+    location: "{{ region }}"
+    size_gb: "{{os_disk_size}}"  
+    sku: "Standard_LRS"  # Choose the disk type (e.g., Standard_LRS, Premium_LRS)
+    creation_data:
+      create_option: "Empty"
+    tags:
+      Owner: "{{ owner_email }}"
+  register: os_disk_info
+
+- debug:
+    var: os_disk_info
+
+- name: Create additional data disk (only if disk size is provided)
+  azure_rm_manageddisk:
+    resource_group: "{{ rg_name }}"
+    name: "{{hostname}}_datadisk"
+    location: "{{ region }}"
+    size_gb: "{{ additional_disk_size }}"
+    sku: "{{ additional_disk_type }}"
+    creation_data:
+      create_option: "Empty"
+    tags:
+      Owner: "{{ owner_email }}"
+  register: additional_disk_info
+  when: additional_disk_size is defined and additional_disk_size | int > 0  # Only run if disk size is provided
+
+- debug:
+    var: additional_disk_info
+  when: additional_disk_size is defined and additional_disk_size | int > 0  # Debug task will only run if disk is created

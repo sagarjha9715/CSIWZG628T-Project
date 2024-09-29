@@ -28,7 +28,18 @@
           publisher: "{{ selected_image.publisher }}"
           sku: "{{ selected_image.sku }}"
           version: "{{ selected_image.version }}"
+        os_disk:
+          managed_disk:
+            id: "{{os_disk_info.id}}"
+          caching: "ReadWrite"
+        data_disks: "{% if additional_disk_size is defined and additional_disk_size | int > 0 %}[{'lun': 0, 'managed_disk': {'id': additional_disk_info.id}, 'disk_size_gb': additional_disk_size, 'managed_disk_type': additional_disk_type}]{% else %}[]{% endif %}"
+        tags:
+          owner: "{{ owner_email }}"
+      register: vm
 
+    - debug:
+        var: vm
+    
     - name: Ensure VM is running
       azure_rm_virtualmachine:
         resource_group: "{{ rg_name }}"
