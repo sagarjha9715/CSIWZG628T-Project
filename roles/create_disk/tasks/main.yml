@@ -13,6 +13,11 @@
       Owner: "{{ owner_email }}"
   register: os_disk_info
 
+- name: Set OS disk ID fact
+  set_fact:
+    os_disk_id: "{{ os_disk_info.state.id }}"
+
+
 - debug:
     var: os_disk_info
 
@@ -31,6 +36,11 @@
   register: additional_disk_info
   when: additional_disk_size is defined and additional_disk_size | int > 0  # Only run if disk size is provided
 
+- name: Set additional disk ID fact (if applicable)
+  set_fact:
+    additional_disk_id: "{{ additional_disk_info.state.id }}"
+  when: additional_disk_size is defined and additional_disk_size | int > 0
+  
 - debug:
     var: additional_disk_info
   when: additional_disk_size is defined and additional_disk_size | int > 0  # Debug task will only run if disk is created
