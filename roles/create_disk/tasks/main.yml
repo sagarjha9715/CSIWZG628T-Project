@@ -23,7 +23,7 @@
     size_gb: "{{ additional_disk_size }}"
     #sku: "{{ additional_disk_type }}"
     #creation_data:
-    create_option: "Empty"
+    create_option: "empty"
     tags:
       Owner: "{{ owner_email }}"
   register: additional_disk_info
