@@ -43,7 +43,7 @@
       - name: ipconfig1
         primary: True
         private_ip_allocation_method: Dynamic
-        public_ip_address: "{{ public_ip.ip_address }}"
+        public_ip_address: "{{ public_ip.state.ip_address }}"
     tags:
       Owner: "{{owner_email}}"
     api_profile: "latest"
