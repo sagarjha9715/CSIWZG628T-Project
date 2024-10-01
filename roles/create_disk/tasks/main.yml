@@ -32,10 +32,6 @@
   azure_rm_virtualmachine:
     resource_group: "{{ rg_name }}"
     name: "{{ hostname }}"
-    data_disks: "{{ lun_disks }}"
+    data_disks: "{{ lun_disks.managed_disk_id }}"
   when: lun_disks is defined
-  register: attach_disk_result
-
-- name: Debug: Attach disks result
-  debug:
-    var: attach_disk_result
+  
