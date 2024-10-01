@@ -38,8 +38,8 @@
 - name: Print Public IP Address details
   debug:
     msg: 
-      - "Public IP Name: {{ public_ip.name }}"
-      - "Public IP Address: {{ public_ip.public_ip.public_ip_address }}"
+      - "Public IP Name: {{ public_ip.state.name }}"
+      - "Public IP Address: {{ public_ip.state.ip_address }}"
 
 # Create Network Interface (NIC)
 - name: Create Vnet interface card for virtual machine
@@ -57,7 +57,7 @@
       - name: ipconfig1
         primary: True
         private_ip_allocation_method: Dynamic
-        public_ip_address: "{{ public_ip.id }}"
+        public_ip_address: "{{ hostname }}_public_ip"
     tags:
       Owner: "{{ owner_email }}"
     api_profile: "latest"
@@ -68,5 +68,4 @@
 - name: Print Network Interface details
   debug:
     msg: 
-      - "Network Interface Name: {{ interface.name }}"
-      - "Primary IP Address: {{ interface.network_interface.ip_configurations[0].private_ip_address }}"
+      - "Network Interface Name: {{ interface.state.name }}"
