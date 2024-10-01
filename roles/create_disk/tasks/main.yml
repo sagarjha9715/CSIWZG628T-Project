@@ -7,7 +7,7 @@
   debug:
     var: disk_sizes_list
 
-- name: Create and attach data disks
+- name: Create data disks
   azure_rm_manageddisk:
     resource_group: "{{ rg_name }}"
     name: "{{ hostname }}_data_disk_{{ item }}"
@@ -17,16 +17,20 @@
   with_items: "{{ disk_sizes_list }}"
   register: data_disks
 
+- name: Build data disks with LUN mapping
+  set_fact:
+    lun_disks: "{{ lun_disks | default([]) + [{'id': item.state.id, 'lun': index}] }}"
+  loop: "{{ data_disks.results }}"
+  loop_control:
+    index_var: index
+
+- name: Debug LUN-disks mapping
+  debug:
+    var: lun_disks
+
 - name: Attach data disks to the virtual machine
   azure_rm_virtualmachine:
     resource_group: "{{ rg_name }}"
     name: "{{ hostname }}"
-    data_disks: "{{ dict_kv_lun }}"
-  vars:
-    dict_kv_lun: |
-      {% set luns = [] %}
-      {% for i in range(0, data_disks.results | length) %}
-        {% set _ = luns.append({'id': data_disks.results[i]['state']['id'], 'lun': i}) %}
-      {% endfor %}
-      {{ luns }}
-  when: data_disks is defined
+    data_disks: "{{ lun_disks }}"
+  when: lun_disks is defined
