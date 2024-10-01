@@ -21,6 +21,12 @@
   azure_rm_virtualmachine:
     resource_group: "{{ rg_name }}"
     name: "{{ hostname }}"
-    data_disks: 
-      "{{ data_disks.results | map(attribute='state.id') | list | map('community.general.dict_kv', 'lun') }}"
+    data_disks: "{{ dict_kv_lun }}"
+  vars:
+    dict_kv_lun: |
+      {% set luns = [] %}
+      {% for i in range(0, data_disks.results | length) %}
+        {% set _ = luns.append({'id': data_disks.results[i]['state']['id'], 'lun': i}) %}
+      {% endfor %}
+      {{ luns }}
   when: data_disks is defined
