@@ -17,11 +17,6 @@
   with_items: "{{ disk_sizes_list }}"
   register: data_disks
 
-
-- name: Debug: Print OS disk information
-  debug:
-    var: os_disk_info
-
 - name: Attach data disks to the virtual machine
   azure_rm_virtualmachine:
     resource_group: "{{ rg_name }}"
