@@ -9,6 +9,7 @@
    # sku: "Standard_LRS"  # Choose the disk type (e.g., Standard_LRS, Premium_LRS)
    # creation_data:
     create_option: "empty"
+    storage_account_type: "Standard_LRS"
     tags:
       Owner: "{{ owner_email }}"
   register: os_disk_info
