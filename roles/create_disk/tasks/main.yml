@@ -14,6 +14,7 @@
     disk_size_gb: "{{ item }}"
     create_option: "empty"
     storage_account_type: "Standard_LRS"
+    managed_by: "{{hostname}}" 
   with_items: "{{ disk_sizes_list }}"
   register: data_disks
 
@@ -32,6 +33,6 @@
   azure_rm_virtualmachine:
     resource_group: "{{ rg_name }}"
     name: "{{ hostname }}"
-    data_disks: "{{ lun_disks.managed_disk_id }}"
+    data_disks: "{{ lun_disks }}"
   when: lun_disks is defined
   
