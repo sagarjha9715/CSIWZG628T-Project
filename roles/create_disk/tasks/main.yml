@@ -22,7 +22,7 @@
     resource_group: "{{ rg_name }}"
     name: "{{ hostname }}"
     data_disks: 
-      "{{ data_disks.results | map(attribute='disk.id') | list | map('community.general.dict_kv', 'lun') }}"
+      "{{ data_disks.results | map(attribute='state.id') | list | map('community.general.dict_kv', 'lun') }}"
     os_disk:
       managed_disk:
         id: "{{ os_disk_id }}"
