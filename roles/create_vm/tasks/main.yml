@@ -44,7 +44,7 @@
         state: "present"
 
     - name: Get VM network interface details
-      azure_rm_networkinterface_facts:
+      azure_rm_networkinterface_info:
         name: "{{ hostname }}_nic"
         resource_group: "{{ rg_name }}"
       register: nic_details
