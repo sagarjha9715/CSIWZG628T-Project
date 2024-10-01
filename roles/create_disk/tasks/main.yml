@@ -13,6 +13,7 @@
     name: "{{ hostname }}_data_disk_{{ item }}"
     disk_size_gb: "{{ item }}"
     create_option: "empty"
+    attach_caching: ReadWrite
     storage_account_type: "Standard_LRS"
     managed_by: "{{hostname}}" 
   with_items: "{{ disk_sizes_list }}"
