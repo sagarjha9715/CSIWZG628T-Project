@@ -17,11 +17,6 @@
   with_items: "{{ disk_sizes_list }}"
   register: data_disks
 
-- name: Get OS disk information
-  azure_rm_manageddisk_info:
-    resource_group: "{{ rg_name }}"
-    name: "{{ hostname }}" 
-  register: os_disk_info
 
 - name: Debug: Print OS disk information
   debug:
@@ -33,9 +28,4 @@
     name: "{{ hostname }}"
     data_disks: 
       "{{ data_disks.results | map(attribute='state.id') | list | map('community.general.dict_kv', 'lun') }}"
-    os_disk:
-      managed_disk:
-        id: "{{ os_disk_info.state.id }}"
-      create_option: "FromImage"
-      caching: "ReadWrite"
   when: data_disks is defined
