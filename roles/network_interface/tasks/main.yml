@@ -31,6 +31,9 @@
     state: present
   register: public_ip
 
+- debug:
+    var: public_ip
+
 # Debug: Print the Public IP details
 - name: Print Public IP Address details
   debug:
