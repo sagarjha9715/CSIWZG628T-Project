@@ -1,41 +1,52 @@
 ---
-- include_vars: vars/main.yml
-- set_fact:
+- name: Include environment-specific variables
+  include_vars: vars/main.yml
+
+# Set virtual network and security group based on environment
+- name: Set VNet and Security Group for PROD
+  set_fact:
     vnet: "Vnet-PROD"
     security_grp: "Baseline-CI"
   when: env == "PROD"
 
-- set_fact:
+- name: Set VNet and Security Group for DEV
+  set_fact:
     vnet: "Vnet-DEV"
     security_grp: "Baseline"
   when: env == "DEV"
 
-- set_fact:
+- name: Set VNet and Security Group for TST
+  set_fact:
     vnet: "Vnet-TST"
     security_grp: "Baseline-NE"
-  when: env == "TST" 
+  when: env == "TST"
 
+# Create Public IP Address
 - name: Create Public IP for the network interface
   azure_rm_publicipaddress:
     name: "{{ hostname }}_public_ip"
     resource_group: "{{ rg_name }}"
-    allocation_method: "Static"  
-    location: "{{ region }}"  
+    allocation_method: "Static"
+    location: "{{ region }}"
     state: present
   register: public_ip
 
-- debug:
-    var: public_ip
+# Debug: Print the Public IP details
+- name: Print Public IP Address details
+  debug:
+    msg: 
+      - "Public IP Name: {{ public_ip.name }}"
+      - "Public IP Address: {{ public_ip.public_ip.public_ip_address }}"
 
+# Create Network Interface (NIC)
 - name: Create Vnet interface card for virtual machine
   azure_rm_networkinterface:
     name: "{{hostname}}_nic"
     resource_group: "{{rg_name}}"
     virtual_network:
       name: "{{vnet}}"
-      resource_group: "{{vnet_rg}}"
-#    location: "{{region}}"
-    subnet_name: "{{layer}}"
+      resource_group: "{{vnet_rg}}"  
+    subnet_name: "{{layer}}"  
     create_with_security_group: false
     security_group:
       name: "{{security_grp}}"
@@ -43,13 +54,16 @@
       - name: ipconfig1
         primary: True
         private_ip_allocation_method: Dynamic
-        public_ip_address: "{{ hostname }}_public_ip"
+        public_ip_address: "{{ public_ip.id }}"
     tags:
-      Owner: "{{owner_email}}"
+      Owner: "{{ owner_email }}"
     api_profile: "latest"
   
   register: interface
 
-- debug:
-    var: interface
-
+# Debug: Print the Network Interface details
+- name: Print Network Interface details
+  debug:
+    msg: 
+      - "Network Interface Name: {{ interface.name }}"
+      - "Primary IP Address: {{ interface.network_interface.ip_configurations[0].private_ip_address }}"

@@ -1,4 +1,5 @@
-- name: Server Creation on process.
+---
+- name: Server Creation in process.
   block:
     - name: Include variables from vars/main.yml
       include_vars: "vars/main.yml"
@@ -11,7 +12,6 @@
           sku: "{{ images[Os_Type].sku }}"
           version: "{{ images[Os_Type].version }}"
       when: Os_Type in images
-      
 
     - name: Create Azure VM
       azure_rm_virtualmachine:
@@ -28,22 +28,32 @@
           publisher: "{{ selected_image.publisher }}"
           sku: "{{ selected_image.sku }}"
           version: "{{ selected_image.version }}"
-        #swap_os_disk:
-         # os_disk_name: "{{hostname}}_OSdisk"
-         # os_disk_resource_group: "{{ rg_name }}"
         os_type: Linux
         managed_disk_type: Standard_LRS
-          
- #       data_disks: "{% if additional_disk_size is defined and additional_disk_size | int > 0 %}[{'lun': 0, 'managed_disk': {'id': additional_disk_id}, 'disk_size_gb': additional_disk_size, 'managed_disk_type': additional_disk_type}]{% else %}[]{% endif %}"
         tags:
           owner: "{{ owner_email }}"
       register: vm
 
     - debug:
         var: vm
-    
+
     - name: Ensure VM is running
       azure_rm_virtualmachine:
         resource_group: "{{ rg_name }}"
         name: "{{ hostname }}"
         state: "present"
+
+    - name: Get VM network interface details
+      azure_rm_networkinterface_facts:
+        name: "{{ hostname }}_nic"
+        resource_group: "{{ rg_name }}"
+      register: nic_details
+
+    - name: Print server details
+      debug:
+        msg:
+          - "Server Name: {{ hostname }}"
+          - "Private IP: {{ nic_details.networkinterfaces[0].ip_configurations[0].private_ip_address }}"
+          - "Public IP: {{ nic_details.networkinterfaces[0].ip_configurations[0].public_ip_address }}"
+
+

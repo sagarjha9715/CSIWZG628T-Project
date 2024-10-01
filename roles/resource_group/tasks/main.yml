@@ -1,11 +1,17 @@
-- name: Create azure resource resource_group
+- name: Create Azure resource group
   azure_rm_resourcegroup:
-    name: "{{rg_name}}"
-    location: "{{region}}"
+    name: "{{ rg_name }}"
+    location: "{{ region }}"
     tags:
-      Name: "{{rg_name}}"
-      Owner: "{{owner_email}}"
-      Environment: "{{env}}"
-      state: "present"
+      Name: "{{ rg_name }}"
+      Owner: "{{ owner_email }}"
+      Environment: "{{ env }}"
+    state: present
+  register: rg_result
 
-    
+- debug:
+    var: rg_result
+
+- name: Debug resource group creation result
+  debug:
+    msg: "Resource group '{{ rg_name }}' created successfully in location '{{ region }}'."

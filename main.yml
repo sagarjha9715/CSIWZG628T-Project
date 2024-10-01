@@ -5,9 +5,14 @@
   collections:
     - azure.azcollection
   roles:
-    - resource_group
-    - network_interface
-    - create_disk
-    - create_vm
+    - role: resource_group
+    
+    - role: network_interface
+    
+    - role: create_vm
+    
+    - role: create_disk
+      when: create_additional_disks == "Yes"
+
     
        
