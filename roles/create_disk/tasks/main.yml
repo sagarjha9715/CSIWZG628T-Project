@@ -34,3 +34,8 @@
     name: "{{ hostname }}"
     data_disks: "{{ lun_disks }}"
   when: lun_disks is defined
+  register: attach_disk_result
+
+- name: Debug: Attach disks result
+  debug:
+    var: attach_disk_result
