@@ -19,7 +19,7 @@
 
 - name: Build data disks with LUN mapping
   set_fact:
-    lun_disks: "{{ lun_disks | default([]) + [{'id': item.state.id, 'lun': index}] }}"
+    lun_disks: "{{ lun_disks | default([]) + [{'managed_disk_id': item.state.id, 'lun': index}] }}"
   loop: "{{ data_disks.results }}"
   loop_control:
     index_var: index
