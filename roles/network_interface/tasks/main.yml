@@ -41,13 +41,9 @@
       - "Public IP Name: {{ public_ip.state.name }}"
       - "Public IP Address: {{ public_ip.state.ip_address }}"
 
-- name: Add newly created server to inventory
-  add_host:
-    name: "{{ hostname }}"
-    ansible_host: "{{ public_ip.state.ip_address }}"
-    ansible_user: "{{ admin_user }}"
-    ansible_password: "{{admin_password}}"
-  when: vm_public_ip is defined
+- name: Set public IP as a fact
+  set_fact:
+    public_ip_address: "{{ public_ip.state.ip_address }}"
 
 # Create Network Interface (NIC)
 - name: Create Vnet interface card for virtual machine
