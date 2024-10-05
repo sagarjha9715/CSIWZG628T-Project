@@ -1,6 +1,6 @@
 ---
 - name: Post-build activity based on server type (RedHat)
-  hosts: all
+  hosts: {{public_ip_address}}
   become: yes
   tasks:
     - name: Check server type
