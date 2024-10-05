@@ -19,14 +19,7 @@
       azure_rm_publicipaddress:
         resource_group: "{{ rg_name }}"
         name: "{{ hostname }}_public_ip"
-        state: absent
-
-    - name: Detach data disks from the VM
-      azure_rm_virtualmachine:
-        resource_group: "{{ rg_name }}"
-        name: "{{ hostname }}"
-        remove_on_absent: yes  # Ensures disks are removed from VM
-        data_disks: []   
+        state: absent   
 
     - name: Delete data disks
       azure_rm_manageddisk:
