@@ -1,0 +1,36 @@
+---
+- name: Cleanup Azure Resources
+  hosts: all
+  gather_facts: yes
+  tasks:
+    - name: Delete the virtual machine
+      azure_rm_virtualmachine:
+        resource_group: "{{ rg_name }}"
+        name: "{{ hostname }}"
+        state: absent
+
+    - name: Delete the network interface
+      azure_rm_networkinterface:
+        resource_group: "{{ rg_name }}"
+        name: "{{ hostname }}_nic"
+        state: absent
+
+    - name: Delete the public IP
+      azure_rm_publicipaddress:
+        resource_group: "{{ rg_name }}"
+        name: "{{ hostname }}_public_ip"
+        state: absent
+
+    - name: Detach data disks from the VM
+      azure_rm_virtualmachine:
+        resource_group: "{{ rg_name }}"
+        name: "{{ hostname }}"
+        remove_on_absent: yes  # Ensures disks are removed from VM
+        data_disks: []   
+
+    - name: Delete data disks
+      azure_rm_manageddisk:
+        resource_group: "{{ rg_name }}"
+        name: "{{ hostname }}_data_disk_{{ item }}"
+        state: absent
+      loop: "{{ disk_sizes_list }}"
