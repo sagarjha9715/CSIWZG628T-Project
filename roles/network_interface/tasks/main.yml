@@ -42,8 +42,9 @@
       - "Public IP Address: {{ public_ip.state.ip_address }}"
 
 - name: Set public IP as a fact
-  set_fact:
-    public_ip_address: "{{ public_ip.state.ip_address }}"
+  set_stats:
+    data:
+      public_ip_address: "{{ public_ip.state.ip_address }}"
 
 # Create Network Interface (NIC)
 - name: Create Vnet interface card for virtual machine

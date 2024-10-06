@@ -7,6 +7,8 @@
   debug:
     var: disk_sizes_list
 
+
+
 - name: Create data disks
   azure_rm_manageddisk:
     resource_group: "{{ rg_name }}"
@@ -36,4 +38,10 @@
     name: "{{ hostname }}"
     data_disks: "{{ lun_disks }}"
   when: lun_disks is defined
+
+
+- name: Set disk as gather_facts
+  set_stats:
+    data:
+      disk_sizes_list: "{{disk_sizes_list}}"
   
