@@ -1,5 +1,5 @@
 ---
-- name: Post-build activity based on server type (RedHat)
+- name: Post-build activity based on server type (Ubuntu)
   hosts: "{{ public_ip_address }}"
   become: yes
   tasks:
@@ -8,19 +8,22 @@
         msg: "The server type is {{ server_type }}"
 
     - name: Install Apache (httpd) for webserver
-      yum:
-        name: httpd
+      apt:
+        name: apache2
         state: present
+        update_cache: yes
       when: server_type == "webserver"
 
     - name: Install MySQL for database server
-      yum:
+      apt:
         name: mysql-server
         state: present
+        update_cache: yes
       when: server_type == "database"
 
     - name: Install generic package (htop) for application server
-      yum:
+      apt:
         name: htop
         state: present
+        update_cache: yes
       when: server_type == "application"

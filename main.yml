@@ -14,5 +14,10 @@
     - role: create_disk
       when: create_additional_disks == "Yes"
 
+- name: Set disk as gather_facts
+  set_stats:
+    data:
+      server_type: "{{server_type}}"
+
     
        
