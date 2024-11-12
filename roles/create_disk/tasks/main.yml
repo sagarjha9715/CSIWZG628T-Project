@@ -16,7 +16,7 @@
 
 - name: Create data disks
   azure_rm_manageddisk:
-    resource_group: "{{ rg_name }}"
+    resource_group: "{{ rg_name }}" 
     name: "{{ hostname }}_data_disk_{{ item }}"
     disk_size_gb: "{{ item }}"
     create_option: "empty"

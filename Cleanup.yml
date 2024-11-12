@@ -8,18 +8,21 @@
         resource_group: "{{ rg_name }}"
         name: "{{ hostname }}"
         state: absent
+      ignore_errors: yes
 
     - name: Delete the network interface
       azure_rm_networkinterface:
         resource_group: "{{ rg_name }}"
         name: "{{ hostname }}_nic"
         state: absent
+      ignore_errors: yes
 
     - name: Delete the public IP
       azure_rm_publicipaddress:
         resource_group: "{{ rg_name }}"
         name: "{{ hostname }}_public_ip"
         state: absent   
+      ignore_errors: yes
 
     - name: Delete data disks
       azure_rm_manageddisk:
@@ -27,3 +30,4 @@
         name: "{{ hostname }}_data_disk_{{ item }}"
         state: absent
       loop: "{{ disk_sizes_list }}"
+      ignore_errors: yes

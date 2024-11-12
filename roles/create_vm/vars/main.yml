@@ -5,7 +5,7 @@ images:
     sku: "22_04-lts"
     version: "latest"
   Windows:
-    offer: "2022-datacenter-azure-edition-hotpatch"
-    publisher: "Microsoft"
-    sku: "2022-datacenter-azure-edition"
+    offer: "WindowsServer"
+    publisher: "MicrosoftWindowsServer"
+    sku: "2022-datacenter-g2"
     version: "latest"
