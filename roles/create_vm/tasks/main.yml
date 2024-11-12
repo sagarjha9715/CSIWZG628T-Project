@@ -28,7 +28,7 @@
           publisher: "{{ selected_image.publisher }}"
           sku: "{{ selected_image.sku }}"
           version: "{{ selected_image.version }}"
-        os_type: Linux
+        os_type: "{{Os_Type}}"
         managed_disk_type: Standard_LRS
         tags:
           owner: "{{ owner_email }}"
