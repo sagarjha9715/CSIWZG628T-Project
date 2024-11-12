@@ -10,9 +10,7 @@
         state: absent
       ignore_errors: yes
 
-    - name: Wait for NIC reservation timeout
-      wait_for:
-        timeout: 180  # Waits for 180 seconds
+      
 
     - name: Delete the network interface
       azure_rm_networkinterface:
